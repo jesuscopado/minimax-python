@@ -38,5 +38,6 @@ ENV/
 *.swo
 
 # Misc
+test-install/
 .DS_Store
 instructions.txt

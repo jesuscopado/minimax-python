@@ -30,7 +30,7 @@ lint:
 	ruff check .
 	mypy src/minimax
 
-test:
+test: dev
 	pytest tests/ -v
 
 # Publishing commands
