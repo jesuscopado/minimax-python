@@ -24,15 +24,14 @@ pip install minimax-python
 ```python
 from minimax import Minimax
 
-# Initialize with environment variables (MINIMAX_API_KEY, MINIMAX_GROUP_ID)
+# Initialize client with env variables (MINIMAX_API_KEY, MINIMAX_GROUP_ID)
 client = Minimax()
 
 # Generate a video from text
-video_path = client.generate_video(
+client.generate_video(
     text="A majestic dragon soars through sunset-lit clouds",
     download_path="dragon.mp4"
 )
-print(f"Video generated at: {video_path}")
 ```
 
 ## Example Outputs
