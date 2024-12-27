@@ -1,9 +1,10 @@
 # MiniMax Python SDK
 
 <div align="center">
-    <img src="assets/images/minimax_logo.png" alt="MiniMax Logo" width="500"/>
+    <img src="assets/images/minimax_logo.png" alt="MiniMax Logo" width="300"/>
     
-[![Status](https://img.shields.io/badge/status-beta-blue)](https://github.com/jesuscopado/minimax-python)
+[![PyPI version](https://img.shields.io/pypi/v/minimax-python?style=flat&colorA=black&colorB=black)](https://pypi.org/project/minimax-python)
+[![License](https://img.shields.io/badge/License-MIT-black?style=flat&colorA=black&colorB=black)](https://opensource.org/licenses/MIT)
 </div>
 
 A type-safe Python SDK for the MiniMax REST API, focusing on video generation capabilities. Built with modern Python features and focused on developer experience, this library provides a clean interface to MiniMax's video generation API.

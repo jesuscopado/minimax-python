@@ -38,7 +38,7 @@ publish-test: build
 	uv publish dist/* --publish-url https://test.pypi.org/legacy/
 
 publish: build
-	uv publish dist/* --publish-url https://pypi.org/legacy/
+	uv publish dist/*
 
 # Test installation from TestPyPI
 test-install:
