@@ -1,8 +1,9 @@
 import asyncio
+import logging
 import os
 import re
 import time
-import logging
+from datetime import datetime
 from pathlib import Path
 from types import TracebackType
 from typing import Dict, Optional, Type, TypeVar, Union
@@ -160,23 +161,22 @@ class BaseClient:
                     value=str(image),
                 )
 
-    def _prepare_output_path(self, output_path: Optional[str] = None) -> str:
-        """Prepare output path for video download.
+    def _prepare_download_path(self, download_path: Optional[str] = None) -> str:
+        """Prepare the download path for the video file.
 
         Args:
-            output_path: Optional custom path for the output file.
+            download_path: Optional custom path for the output file.
 
         Returns:
-            str: The path where the video will be saved.
+            str: The prepared download path
         """
-        if output_path:
-            logger.debug(f"Using provided output path: {output_path}")
-            return output_path
+        if download_path:
+            logger.debug(f"Using provided download path: {download_path}")
+            return download_path
 
-        timestamp = int(time.time())
-        default_path = f"minimax_video_{timestamp}.mp4"
-        logger.debug(f"Generated default output path: {default_path}")
-        return default_path
+        # Generate a default path if none provided
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        return f"minimax_video_{timestamp}.mp4"
 
     async def _handle_api_error(
         self,

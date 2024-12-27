@@ -1,7 +1,6 @@
+import logging
 from pathlib import Path
 from typing import Optional, Union
-import logging
-import httpx
 
 from .base_client import AsyncAPIClient, SyncAPIClient
 from .exceptions import MinimaxAPIError
@@ -221,16 +220,16 @@ class Minimax(SyncAPIClient):
                 raise MinimaxAPIError(f"Unexpected error: {e}")
             raise
 
-    def create_video(
+    def generate_video(
         self,
         text: Optional[str] = None,
         image: Optional[Union[str, Path, bytes]] = None,
-        output_path: Optional[str] = None,
+        download_path: Optional[str] = None,
         prompt_optimizer: bool = True,
     ) -> str:
-        """Create and download a video in one step."""
-        logger.info("Creating and downloading video in one step")
-        output_path = self._prepare_output_path(output_path)
+        """Generate and download a video in one step."""
+        logger.info("Generating and downloading video in one step")
+        download_path = self._prepare_download_path(download_path)
 
         if text and not image:
             logger.debug("Using text-to-video generation")
@@ -245,9 +244,9 @@ class Minimax(SyncAPIClient):
             logger.error(error_msg)
             raise ValueError(error_msg)
 
-        self.retrieve_video(file_id=response.file_id, download_path=output_path)
-        logger.info(f"Video created and downloaded to: {output_path}")
-        return output_path
+        self.retrieve_video(file_id=response.file_id, download_path=download_path)
+        logger.info(f"Video generated and downloaded to: {download_path}")
+        return download_path
 
     def close(self):
         """Close the client session"""
@@ -486,16 +485,16 @@ class AsyncMinimax(AsyncAPIClient):
                 response=str(e),
             )
 
-    async def create_video(
+    async def generate_video(
         self,
         text: Optional[str] = None,
         image: Optional[Union[str, Path, bytes]] = None,
-        output_path: Optional[str] = None,
+        download_path: Optional[str] = None,
         prompt_optimizer: bool = True,
     ) -> str:
-        """Create and download a video in one step."""
-        logger.info("Creating and downloading video in one step")
-        output_path = self._prepare_output_path(output_path)
+        """Generate and download a video in one step."""
+        logger.info("Generating and downloading video in one step")
+        download_path = self._prepare_download_path(download_path)
 
         if text and not image:
             logger.debug("Using text-to-video generation")
@@ -510,9 +509,9 @@ class AsyncMinimax(AsyncAPIClient):
             logger.error(error_msg)
             raise ValueError(error_msg)
 
-        await self.retrieve_video(file_id=response.file_id, download_path=output_path)
-        logger.info(f"Video created and downloaded to: {output_path}")
-        return output_path
+        await self.retrieve_video(file_id=response.file_id, download_path=download_path)
+        logger.info(f"Video generated and downloaded to: {download_path}")
+        return download_path
 
     async def close(self):
         """Close the client session"""

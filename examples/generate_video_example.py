@@ -9,6 +9,6 @@ prompt = """A golden retriever puppy plays in a sunny garden.
 The puppy joyfully chases a red ball through blooming flowers, 
 while butterflies flutter around in the background."""
 
-# Create the video
-output_path = client.create_video(text=prompt)
-print(f"Video generated and downloaded to: {output_path}")
+# Generate and download video in one step
+download_path = client.generate_video(text=prompt)
+print(f"Video generated and downloaded to: {download_path}")

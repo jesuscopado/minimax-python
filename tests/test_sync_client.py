@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -64,16 +64,19 @@ def test_retrieve_video_error(client, mock_response):
             client.retrieve_video("test_file_id")
 
 
-def test_create_video_text_success(client, mock_response, tmp_path):
-    output_path = tmp_path / "test_video.mp4"
-    with patch.object(client._client, "post", return_value=mock_response), patch.object(
-        client._client, "get", return_value=mock_response
-    ):  # For polling
-        result = client.create_video(text="A beautiful sunset", output_path=str(output_path))
-        assert str(output_path) == result  # create_video returns the output path
-        assert output_path.exists()  # verify file was created
+def test_generate_video(client: Minimax, tmp_path: Path):
+    """Test generating a video from text"""
+    download_path = tmp_path / "test_video.mp4"
+
+    with patch("minimax.client.Minimax.text_to_video") as mock_text_to_video, patch(
+        "minimax.client.Minimax.retrieve_video"
+    ) as mock_retrieve_video:
+        mock_text_to_video.return_value = VideoGenerationResponse(task_id="123", file_id="456")
+        result = client.generate_video(text="A beautiful sunset", download_path=str(download_path))
+        assert str(download_path) == result  # generate_video returns the download path
+        mock_retrieve_video.assert_called_once_with(file_id="456", download_path=str(download_path))
 
 
-def test_create_video_no_input_error(client):
+def test_generate_video_no_input_error(client):
     with pytest.raises(ValueError):
-        client.create_video()
+        client.generate_video()

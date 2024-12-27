@@ -28,9 +28,9 @@ from minimax import Minimax
 client = Minimax()
 
 # Generate a video from text
-video_path = client.create_video(
+video_path = client.generate_video(
     text="A majestic dragon soars through sunset-lit clouds",
-    output_path="dragon.mp4"
+    download_path="dragon.mp4"
 )
 print(f"Video generated at: {video_path}")
 ```
@@ -104,10 +104,10 @@ as it raises its head majestically, creating an awe-inspiring atmosphere with
 rich, vibrant colors and dramatic lighting."""
 
 # Generate video from image
-client.create_video(
+client.generate_video(
     image="dragon.jpg",
     text=prompt,
-    output_path="dragon.mp4"
+    download_path="dragon.mp4"
 )
 ```
 
@@ -118,7 +118,10 @@ import asyncio
 
 async def main():
     # Initialize the async client
-    client = AsyncMinimax()
+    client = AsyncMinimax(
+        api_key="your_api_key",    # Optional if MINIMAX_API_KEY env var is set
+        group_id="your_group_id"   # Optional if MINIMAX_GROUP_ID env var is set
+    )
 
     # Example: Text-to-Video generation
     prompt = """A martial artist performs a spinning kick in a traditional dojo.
@@ -127,7 +130,7 @@ async def main():
     capturing the precise form and power of the technique. The scene has a
     cinematic quality with dynamic lighting that emphasizes the flow of movement."""
 
-    await client.create_video(text=prompt, output_path="martial_arts.mp4")
+    await client.generate_video(text=prompt, download_path="martial_arts.mp4")
 
 asyncio.run(main())
 ```

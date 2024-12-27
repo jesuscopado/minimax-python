@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -69,18 +69,20 @@ async def test_retrieve_video_error(client, mock_async_error_response):
 
 
 @pytest.mark.asyncio
-async def test_create_video_text_success(client, mock_async_response, mock_download_response, tmp_path):
-    output_path = tmp_path / "test_video.mp4"
+async def test_generate_video(client: AsyncMinimax, tmp_path: Path):
+    """Test generating a video from text"""
+    download_path = tmp_path / "test_video.mp4"
 
-    with patch.object(client._client, "post", return_value=mock_async_response), patch.object(
-        client._client, "get", side_effect=[mock_async_response, mock_async_response, mock_download_response]
-    ):  # For polling, file info, and download
-        result = await client.create_video(text="A beautiful sunset", output_path=str(output_path))
-        assert str(output_path) == result  # create_video returns the output path
-        assert output_path.exists()  # verify file was created
+    with patch("minimax.client.AsyncMinimax.text_to_video") as mock_text_to_video, patch(
+        "minimax.client.AsyncMinimax.retrieve_video"
+    ) as mock_retrieve_video:
+        mock_text_to_video.return_value = VideoGenerationResponse(task_id="123", file_id="456")
+        result = await client.generate_video(text="A beautiful sunset", download_path=str(download_path))
+        assert str(download_path) == result  # generate_video returns the download path
+        mock_retrieve_video.assert_called_once_with(file_id="456", download_path=str(download_path))
 
 
 @pytest.mark.asyncio
-async def test_create_video_no_input_error(client):
+async def test_generate_video_no_input_error(client):
     with pytest.raises(ValueError):
-        await client.create_video()
+        await client.generate_video()

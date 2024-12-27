@@ -34,10 +34,10 @@ test:
 	pytest tests/ -v
 
 # Publishing commands
-publish-test: build
+publish-test: build test
 	uv publish dist/* --publish-url https://test.pypi.org/legacy/
 
-publish: build
+publish: build test
 	uv publish dist/*
 
 # Test installation from TestPyPI

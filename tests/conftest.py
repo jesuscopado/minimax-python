@@ -1,6 +1,5 @@
-import pytest
-from unittest.mock import AsyncMock, MagicMock
 import httpx
+import pytest
 
 
 class MockResponse(httpx.Response):

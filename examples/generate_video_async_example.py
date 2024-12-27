@@ -15,9 +15,9 @@ async def main():
     and soft shadows. The cityscape visible through the window shows buildings with
     twinkling lights coming alive as day turns to dusk."""
 
-    # Create the video asynchronously
-    output_path = await client.create_video(text=prompt)
-    print(f"Video generated and downloaded to: {output_path}")
+    # Generate and download video in one step
+    download_path = await client.generate_video(text=prompt)
+    print(f"Video generated and downloaded to: {download_path}")
 
 
 if __name__ == "__main__":
