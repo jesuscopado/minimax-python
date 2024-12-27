@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) [Year] [Your Name]
+Copyright (c) 2024 Jesús Copado
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,4 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-Disclaimer: This SDK is an unofficial implementation and is not affiliated with, endorsed by, or associated with MiniMax Open Platform or NanoNoble PTE. LTD. Use of this SDK is at your own risk and subject to MiniMax Open Platform's Terms of Service: https://intl.minimaxi.com/protocol/terms-of-service
+Disclaimer: This SDK is an unofficial implementation and is not affiliated with,
+endorsed by, or associated with MiniMax Open Platform or NanoNoble PTE. LTD. 
+Use of this SDK is at your own risk and subject to MiniMax Open Platform's 
+Terms of Service: https://intl.minimaxi.com/protocol/terms-of-service.
